@@ -1,36 +1,14 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+MedicScan AI
 
-## Getting Started
+MedicScan AI is a full-stack Medical Report & Prescription Analyzation Web Application
+Many Patients often have difficulty in understanding complex medical reports, prescriptions, and test results
+One can upload medical documents and MediScan AI provides simple summaries, highlights potential health concerns, and explains medications or treatment ways.
 
-First, run the development server:
+Features
+- Upload medical reports, prescriptions, or lab results (PDF, image).
+- AI-generated, easy-to-understand summary with highlighted health risks.
+- Medication interaction warnings & recommended next steps.
+- Secure user profiles with full document history
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Tech Stack
+NextJS, Express JS, Typescript, MongoDB, Mongoose
