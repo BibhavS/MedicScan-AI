@@ -9,7 +9,7 @@ const connection : Connection = {}
 async function connectToDB() : Promise<void> {
     if(connection.isConnected){
         console.log("Database connection is already setup");
-        return
+        return;
     }
 
     try {
@@ -18,7 +18,7 @@ async function connectToDB() : Promise<void> {
         console.log("Database connection Done");
         
     } catch (error) {
-        console.log("Database connection failed | ", error);
+        console.log("Database connection failed\n", error);
         process.exit(1);
         
     }

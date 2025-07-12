@@ -4,9 +4,11 @@ export interface IUser extends Document {
     username: string;
     email: string;
     password: string;
-    verifyCode: string;
-    verifyCodeExpiry: Date;
     isVerified: boolean;
+    forgotPasswordToken: string,
+    forgotPasswordTokenExpiry: Date,
+    verifyToken: string,
+    verifyTokenExpiry: Date,
 }
 
 const UserSchema = new Schema<IUser>({
@@ -26,17 +28,25 @@ const UserSchema = new Schema<IUser>({
         type: String,
         required: [true, "Password is required"]
     },
-    verifyCode: {
+     isVerified: {
+        type: Boolean,
+        default: false
+    },
+    forgotPasswordToken: {
         type: String,
         required: true
     },
-    verifyCodeExpiry: {
+    forgotPasswordTokenExpiry: {
         type: Date,
         required: true
     },
-    isVerified: {
-        type: Boolean,
-        default: false
+    verifyToken: {
+        type: String,
+        required: true
+    },
+    verifyTokenExpiry: {
+        type: Date,
+        required: true
     }
 })
 
