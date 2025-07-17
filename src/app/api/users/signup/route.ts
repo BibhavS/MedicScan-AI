@@ -85,8 +85,8 @@ export async function POST(request: NextRequest){
         return NextResponse.json(
             {
                 success: false,
-                message: "Error while registering the user"
-            }, {status: 500}
-        )
+                message: "Error while registering the user",
+                error: error.message
+            }, {status: 500})
     }
 }

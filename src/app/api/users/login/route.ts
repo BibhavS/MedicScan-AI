@@ -2,7 +2,6 @@ import connectToDB from "@/lib/dbConnect";
 import User from "@/models/User";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import { generateToken } from "@/lib/auth";
 
 export async function POST(request: NextRequest){
@@ -40,21 +39,23 @@ export async function POST(request: NextRequest){
         const response = NextResponse.json({
             success: true,
             message: "Logged In Successfully"
-        })
+        }, {status: 200})
 
         response.cookies.set("token", token, {
             httpOnly: true,
             secure: true,
             path: "/",
+            maxAge: 60 * 60 * 24
         })
 
+        return response;  
 
-        
     } catch (error: any) {
         console.log("Error logging in, Please try again | ", error);
         return NextResponse.json({
             success: false,
-            message: "Error logging in"
+            message: "Error logging in",
+            error: error.message
         }, {status: 500})
     }
 }

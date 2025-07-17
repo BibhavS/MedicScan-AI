@@ -48,7 +48,8 @@ export async function POST(request: NextRequest){
 
         return NextResponse.json({
             success: false,
-            message: "Error verifying the user"
+            message: "Error verifying the user",
+            error: error.message
         }, {status: 500})
         
     }
