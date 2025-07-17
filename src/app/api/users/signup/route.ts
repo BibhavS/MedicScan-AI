@@ -10,23 +10,23 @@ export async function POST(request: NextRequest){
     try {
         const {username, email, password} = await request.json();
 
-        const exisitingUserVerifiedByUsername = await User.findOne({
+        const existingUserVerifiedByUsername = await User.findOne({
             username,
             isVerified: true
         });
 
-        if(exisitingUserVerifiedByUsername){
+        if(existingUserVerifiedByUsername){
             return NextResponse.json({
-                sucesss: false,
+                success: false,
                 message: "This username is already taken"
             }), {status: 400}
         }
 
-        const exisitingUserByEmail = await User.findOne({email});
+        const existingUserByEmail = await User.findOne({email});
         const verifyCode = Math.floor(10000 + Math.random() * 90000).toString();
 
-        if(exisitingUserByEmail){
-            if(exisitingUserByEmail.isVerified){
+        if(existingUserByEmail){
+            if(existingUserByEmail.isVerified){
                 return NextResponse.json({
                     success: false,
                     message: "User with this email address already exists"
@@ -35,10 +35,10 @@ export async function POST(request: NextRequest){
             else{
                 const salt = await bcrypt.genSalt(10);
                 const hashedPassword = await bcrypt.hash(password, salt);
-                exisitingUserByEmail.password = hashedPassword;  
-                exisitingUserByEmail.verifyCode = verifyCode;
-                exisitingUserByEmail.verifyCodeExpiry = new Date(Date.now() + 3600000);
-                await exisitingUserByEmail.save();              
+                existingUserByEmail.password = hashedPassword;  
+                existingUserByEmail.verifyCode = verifyCode;
+                existingUserByEmail.verifyCodeExpiry = new Date(Date.now() + 3600000);
+                await existingUserByEmail.save();              
             }
         }
         else{

@@ -28,7 +28,7 @@ const UserSchema = new Schema<IUser>({
         type: String,
         required: [true, "Password is required"]
     },
-     isVerified: {
+    isVerified: {
         type: Boolean,
         default: false
     },
@@ -40,11 +40,11 @@ const UserSchema = new Schema<IUser>({
         type: Date,
         required: true
     },
-    verifyToken: {
+    verifyCode: {
         type: String,
         required: true
     },
-    verifyTokenExpiry: {
+    verifyCodeExpiry: {
         type: Date,
         required: true
     }

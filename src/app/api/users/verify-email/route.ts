@@ -24,7 +24,7 @@ export async function POST(request: NextRequest){
             user.isVerified = true;
             await user.save();
             return NextResponse.json({
-                sucess: true,
+                success: true,
                 message: "Account verfied succesfully"
             }, {status: 200})
         }
@@ -43,7 +43,7 @@ export async function POST(request: NextRequest){
             }, {status: 400})
         }
         
-    } catch (error) {
+    } catch (error: any) {
         console.log("Error verifying user", error);
 
         return NextResponse.json({
