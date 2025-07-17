@@ -7,15 +7,15 @@ import {
   Row,
   Section,
   Text,
-} from '@react-email/components'; 
+} from '@react-email/components';
 
 
 interface EmailProps {
   username: string;
-  token: string;
+  code: string;
 }
 
-export default function EmailFormat({ username, token }: EmailProps) {
+export default function EmailFormat({ username, code }: EmailProps) {
   return (
     <Html lang="en" dir="ltr">
       <Head>
@@ -31,7 +31,7 @@ export default function EmailFormat({ username, token }: EmailProps) {
           fontStyle="normal"
         />
       </Head>
-      <Preview>Here&apos;s your token: {token}</Preview>
+      <Preview>Here&apos;s your token: {code}</Preview>
       <Section>
         <Row>
           <Heading as="h2">Hello {username},</Heading>
@@ -42,7 +42,7 @@ export default function EmailFormat({ username, token }: EmailProps) {
           </Text>
         </Row>
         <Row>
-          <Text>{token}</Text> 
+          <Text>{code}</Text>
         </Row>
         <Row>
           <Text>

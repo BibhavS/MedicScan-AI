@@ -5,7 +5,7 @@ import { ApiResponse } from "@/types/ApiResponse";
 export async function sendEmail(
     email: string,
     username: string,
-    token: string,
+    code: string,
     emailType: string,
 ) : Promise<ApiResponse>{
     try {
@@ -13,7 +13,7 @@ export async function sendEmail(
             from: 'onboarding@resend.dev',
             to: email,
             subject: emailType === 'VERIFY' ? "Verify your email" : "Reset your password",
-            react: EmailFormat({username, token: token})
+            react: EmailFormat({username, token: code})
 
         });
         return {success: true, message: "Email send successfully"};
