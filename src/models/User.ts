@@ -34,11 +34,11 @@ const UserSchema = new Schema<IUser>({
     },
     forgotPasswordToken: {
         type: String,
-        required: true
+        required: false
     },
     forgotPasswordTokenExpiry: {
         type: Date,
-        required: true
+        required: false
     },
     verifyCode: {
         type: String,
