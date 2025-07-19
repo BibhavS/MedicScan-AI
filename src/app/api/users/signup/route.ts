@@ -16,10 +16,11 @@ export async function POST(request: NextRequest){
         });
 
         if(existingUserVerifiedByUsername){
+            console.log("Username taken");
             return NextResponse.json({
                 success: false,
                 message: "This username is already taken"
-            }), {status: 400}
+            }, {status: 400})  
         }
 
         const existingUserByEmail = await User.findOne({email});
@@ -27,6 +28,7 @@ export async function POST(request: NextRequest){
 
         if(existingUserByEmail){
             if(existingUserByEmail.isVerified){
+                console.log("Email taken");
                 return NextResponse.json({
                     success: false,
                     message: "User with this email address already exists"

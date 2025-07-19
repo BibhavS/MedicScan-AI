@@ -1,5 +1,4 @@
 import { NextRequest } from "next/server";
-import jwt from "jsonwebtoken";
 import { verifyToken } from "@/lib/auth";
 
 export const getTokenData = (request: NextRequest) => {

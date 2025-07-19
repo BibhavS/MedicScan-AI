@@ -13,7 +13,7 @@ export async function sendEmail(
             from: 'onboarding@resend.dev',
             to: email,
             subject: emailType === 'VERIFY' ? "Verify your email" : "Reset your password",
-            react: EmailFormat({username, code: code})
+            react: EmailFormat({username, code})
 
         });
         return {success: true, message: "Email send successfully"};

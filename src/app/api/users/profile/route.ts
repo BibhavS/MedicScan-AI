@@ -3,7 +3,7 @@ import connectToDB from "@/lib/dbConnect";
 import { NextRequest, NextResponse } from "next/server";
 import { getTokenData } from "@/utils/getTokenData";
 
-export async function post(request: NextRequest){
+export async function POST(request: NextRequest){
     await connectToDB();
     try {
         const userId = await getTokenData(request);
@@ -19,7 +19,7 @@ export async function post(request: NextRequest){
         return NextResponse.json({
             message: "User data extracted",
             data: user
-        }, {status: 500})
+        }, {status: 200})
 
     } catch (error: any) {
         console.log("Error getting the user data | ", error);
