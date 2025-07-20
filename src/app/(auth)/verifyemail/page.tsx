@@ -3,8 +3,9 @@ import React, { useState, ChangeEvent } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { Toaster, toast } from 'react-hot-toast'
 
-export default function VerifyEmailPage(){
+export default function VerifyEmailPage() {
   const searchParams = useSearchParams()
   const username: string = searchParams.get("username") ?? ""
   const [code, setCode] = useState<string>("")
@@ -19,14 +20,14 @@ export default function VerifyEmailPage(){
       })
 
       if (res.ok) {
-        alert("Email verified successfully!")
+        toast.success("Email Verfied successfully");
         router.push('/dashboard')
       } else {
-        alert("Verification failed")
+        toast.error("Verification failed Please check your code again");
       }
     } catch (error) {
-      alert("An unexpected error occurred")
-      console.error(error)
+      toast.error("An unexpected error occurred");
+      console.error(error);
     }
   }
 
@@ -35,18 +36,24 @@ export default function VerifyEmailPage(){
   }
 
   return (
-    <div className="max-w-md mx-auto mt-20 p-6 border rounded-xl shadow-md space-y-4">
-      <h2 className="text-2xl font-semibold text-center">Verify Your Email</h2>
-      <p className="text-sm text-center text-gray-600">
-        Code sent to email for: <strong>{username}</strong>
-      </p>
-      <Input
-        placeholder="Enter 5-digit code"
-        maxLength={5}
-        value={code}
-        onChange={onCodeChange}
+    <>
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
       />
-      <Button onClick={handleVerify} className="w-full cursor-pointer">Verify</Button>
-    </div>
+      <div className="max-w-md mx-auto mt-20 p-6 border rounded-xl shadow-md space-y-4">
+        <h2 className="text-2xl font-semibold text-center">Verify Your Email</h2>
+        <p className="text-sm text-center text-gray-600">
+          Code sent to email for: <strong>{username}</strong>
+        </p>
+        <Input
+          placeholder="Enter 5-digit code"
+          maxLength={5}
+          value={code}
+          onChange={onCodeChange}
+        />
+        <Button onClick={handleVerify} className="w-full cursor-pointer">Verify</Button>
+      </div>
+    </>
   )
 }

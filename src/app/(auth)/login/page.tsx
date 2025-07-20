@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
 import { Toaster, toast } from "react-hot-toast"
+import axios from "axios"
 
 export default function LoginPage() {
   const [email, setEmail] = useState<string>("")
@@ -12,17 +13,22 @@ export default function LoginPage() {
 
   const handleLogin = async (): Promise<void> => {
     try {
-      const res: Response = await fetch("/api/users/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      })
+      const response = await axios.post(
+        "/api/users/login",
+        { email, password },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response.data);
 
-      if (res.ok) {
+      if (response.data.success) {
         toast.success("Logged In Successfully");
         router.push("/dashboard")
       } else {
-        alert("Login failed. Sign up if you have not created an account.")
+        toast.error(response.data.message);
       }
     } catch (error) {
       toast.error("Error Logging In");
@@ -41,16 +47,17 @@ export default function LoginPage() {
   return (
     <>
       <Toaster
-        position="top-right"
+        position="top-center"
         reverseOrder={false}
       />
-      <div className="max-w-md mx-auto mt-20 p-6 border rounded-xl shadow-md space-y-4">
-        <h2 className="text-2xl font-semibold text-center">Log In</h2>
-        <Input placeholder="Email" value={email} onChange={onEmailChange} />
-        <Input placeholder="Password" type="password" value={password} onChange={onPasswordChange} />
-        <Button onClick={handleLogin} className="w-full cursor-pointer">Log In</Button>
+      <h1 className="mt-16 text-center text-4xl font-semibold">MedicScan AI</h1>
+      <div className="max-w-md mx-auto mt-16 p-6 border rounded-xl shadow-lg space-y-4">
+        <h2 className="text-3xl font-semibold text-center">Sign In</h2>
+        <Input placeholder="Enter your Email" value={email} onChange={onEmailChange} className="my-8" />
+        <Input placeholder="Enter your Password" type="password" value={password} onChange={onPasswordChange} className="my-8" />
+        <Button onClick={handleLogin} className="w-full cursor-pointer py-5">Log In</Button>
 
-        <p className="text-sm text-center text-gray-500">
+        <p className="text-sm text-center text-gray-500 mt-3">
           Don’t have an account?{" "}
           <button
             onClick={() => router.push("/signup")}

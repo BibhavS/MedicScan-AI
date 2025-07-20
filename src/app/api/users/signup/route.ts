@@ -20,7 +20,7 @@ export async function POST(request: NextRequest){
             return NextResponse.json({
                 success: false,
                 message: "This username is already taken"
-            }, {status: 400})  
+            })  
         }
 
         const existingUserByEmail = await User.findOne({email});
@@ -32,7 +32,7 @@ export async function POST(request: NextRequest){
                 return NextResponse.json({
                     success: false,
                     message: "User with this email address already exists"
-                }, {status: 400})
+                })
             }
             else{
                 const salt = await bcrypt.genSalt(10);
@@ -74,7 +74,7 @@ export async function POST(request: NextRequest){
             return NextResponse.json({
                 success: false,
                 message: emailResponse.message
-            }, {status: 500})
+            })
         }
 
         return NextResponse.json({

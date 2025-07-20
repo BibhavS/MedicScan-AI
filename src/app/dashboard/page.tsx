@@ -32,7 +32,7 @@ export default function Dashboard() {
   return (
     <>
       <Toaster
-        position="top-right"
+        position="top-center"
         reverseOrder={false}
       />
       <div className='flex m-10 justify-between'>

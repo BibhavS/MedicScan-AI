@@ -14,8 +14,8 @@ export async function POST(request: NextRequest){
         if(!user){
             return NextResponse.json({
                 success: false,
-                message: "User with this email address does not exists"
-            }, {status: 400})
+                message: "User with this email address does not exist"
+            })
         }
 
         console.log("User exists");
@@ -25,7 +25,7 @@ export async function POST(request: NextRequest){
             return NextResponse.json({
                 success: false,
                 message: "Please check your credentials"
-            }, {status: 400})
+            })
         }
 
         const tokenData = {

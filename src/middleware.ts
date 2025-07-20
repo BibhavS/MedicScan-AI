@@ -5,9 +5,13 @@ import type { NextRequest } from 'next/server'
 export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname
 
-  const isPublicPath = path === '/login' || path === '/signup' || path === '/verify-email' || path === '/'
+  const isPublicPath = path === '/login' || path === '/signup' || path === '/verify-email' 
 
   const token = request.cookies.get('token')?.value || ''
+
+  if (path === '/' && !token) {
+    return NextResponse.redirect(new URL('/login', request.url))
+  }
 
   if(isPublicPath && token) {
     return NextResponse.redirect(new URL('/dashboard', request.nextUrl))
