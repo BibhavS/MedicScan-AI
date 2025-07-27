@@ -33,14 +33,14 @@ export async function POST(request: NextRequest){
             return NextResponse.json({
                 success: false,
                 message: "Verification code has been expired, Please sign up again"
-            }, {status: 400})
+            })
         }
 
         else{
             return NextResponse.json({
                 success: false,
                 message: "Incorrect verification code, Check your email again"
-            }, {status: 400})
+            })
         }
         
     } catch (error: any) {

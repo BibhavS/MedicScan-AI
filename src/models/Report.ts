@@ -1,17 +1,18 @@
 import mongoose, {Schema, Document, Types, Model} from "mongoose";
 
 export interface IReport extends Document{
-    user: Types.ObjectId;
+    userId: Types.ObjectId;
     fileUrl: string;
     content: string;
     createdAt: Date;
+    updatedAt: Date;
 }
 
 const ReportSchema = new Schema<IReport>({
-    user:{
+    userId:{
         type: Schema.Types.ObjectId,
         ref: 'User',
-        requred: true
+        required: true
     },
     fileUrl: {
         type: String,
@@ -19,14 +20,9 @@ const ReportSchema = new Schema<IReport>({
     },
     content: {
         type: String
-    },
-    createdAt: {
-        type: Date,
-        required: true,
-        default: Date.now()
     }
-})
+}, {timestamps: true})
 
-const Report : Model<IReport> =(mongoose.models.Repor as Model<IReport>) || mongoose.model<IReport>("Report", ReportSchema);
+const Report : Model<IReport> =(mongoose.models.Report as Model<IReport>) || mongoose.model<IReport>("Report", ReportSchema);
 
 export default Report;

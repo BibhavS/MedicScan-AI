@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
 import { Toaster, toast } from "react-hot-toast"
 import axios from "axios"
+import { loginSchema } from "@/schemas/loginSchema"
 
 export default function LoginPage() {
   const [email, setEmail] = useState<string>("")
@@ -12,6 +13,16 @@ export default function LoginPage() {
   const router = useRouter()
 
   const handleLogin = async (): Promise<void> => {
+
+    const validationResult = loginSchema.safeParse({email, password});
+
+    if(!validationResult.success){
+      validationResult.error.errors.forEach((err) => {
+        toast.error(err.message);
+      });
+      return;
+    }
+
     try {
       const response = await axios.post(
         "/api/users/login",

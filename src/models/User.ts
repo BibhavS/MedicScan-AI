@@ -48,7 +48,7 @@ const UserSchema = new Schema<IUser>({
         type: Date,
         required: true
     }
-})
+}, {timestamps: true})
 
 const User : Model<IUser> = (mongoose.models.User as mongoose.Model<IUser>) || mongoose.model<IUser>("User", UserSchema);
 

@@ -16,6 +16,7 @@ export default function Profile() {
   });
 
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   const fetchUserData = async () => {
     try {
@@ -46,6 +47,9 @@ export default function Profile() {
     <>
       <div className='flex m-10 justify-center'>
         <h1 className='text-3xl font-semibold'>Hello {user?.username}</h1>
+      </div>
+      <div className='flex justify-center'>
+        <Button className='py-5 text-lg cursor-pointer' onClick={()=> router.push('/dashboard')}>Back</Button>
       </div>
     </>
   )
