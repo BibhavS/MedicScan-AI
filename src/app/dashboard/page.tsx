@@ -6,11 +6,16 @@ import axios from 'axios';
 import { Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
+import NavBar from '@/components/navbar';
+import Image from 'next/image';
+import { IReport } from '@/models/Report';
 
 export default function Dashboard() {
   const router = useRouter();
   const [file, setFile] = useState<File | null>(null);
+  const [data, setData] = useState<IReport | null>(null);
   const [loading, setLoading] = useState(false);
+  const [showReport, setShowReport] = useState(false);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFile(e.target.files?.[0] || null);
@@ -40,8 +45,10 @@ export default function Dashboard() {
       if (!response.data.success) {
         toast.error("Error fetching your report summary");
       }
-      else{
+      else {
         console.log(response.data.data);
+        setData(response.data.data);
+        setShowReport(true);
         toast.success("Your report has been prepared");
       }
 
@@ -52,26 +59,6 @@ export default function Dashboard() {
       setLoading(false);
     }
   }
-  const handleLogout = async () => {
-    try {
-      const response = await axios.get("/api/users/logout", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (response.data.success) {
-        console.log(response.data);
-        toast.success("Logged out successfully");
-        router.push('/login');
-      }
-
-    } catch (error: any) {
-      toast.error(error.message);
-      console.error(error);
-      console.log("error occured");
-    }
-  }
 
   return (
     <>
@@ -79,20 +66,37 @@ export default function Dashboard() {
         position="top-center"
         reverseOrder={false}
       />
-      <div className='flex'>
-        <div className='w-1/5 h-screen p-8 border-r-2 flex flex-col gap-8'>
-          <h1 className="text-center text-3xl font-semibold mb-10">MedicScan AI</h1>
-          <Button onClick={() => router.push('/profile')} className='cursor-pointer'>Profile</Button>
-          <Button className='cursor-pointer'>My Reports</Button>
-          <Button onClick={handleLogout} className='cursor-pointer'>Log out</Button>
+      <div className='flex flex-col min-h-screen'>
+        <NavBar />
+        <div className='p-8 flex flex-col items-center justify-center gap-8'>
+          <h1 className='text-3xl mb-2 font-medium'>Upload your Medical Report/Document</h1>
+          <div className='flex items-center gap-4'>
+            <Input type='file' onChange={handleFileChange} className='cursor-pointer' />
+            <Button onClick={handleFileUpload} disabled={loading} className='p-5 cursor-pointer'>
+              {loading ? "Uploading..." : "Upload"}
+            </Button>
+          </div>
         </div>
-        <div className='w-4/5 h-screen p-8 flex flex-col items-center gap-8'>
-          <h1 className='text-3xl mb-10 font-semibold'>Upload your Medical Report</h1>
-          <Input type='file' onChange={handleFileChange} className='w-1/4 cursor-pointer' />
-          <Button onClick={handleFileUpload} disabled={loading} className='p-6 cursor-pointer'>
-            {loading ? "Uploading..." : "Upload"}
-          </Button>
-        </div>
+        {showReport && (
+           <div className='flex justify-center'>
+            <div className='mt-5 flex justify-center w-4/5 gap-5'>
+            <div className='animate-fadeIn'>
+              {data?.fileUrl && (
+                <Image
+                  src={data.fileUrl}
+                  alt="Report-image"
+                  height={550}
+                  width={300}
+                  className='transition-all duration-1000 ease-out'
+                />
+              )}
+            </div>
+            <div className='w-3/5 animate-fadeIn'>
+              <p className='text-justify'>{data?.content}</p>
+            </div>
+          </div>
+           </div>
+        )}
       </div>
     </>
   )

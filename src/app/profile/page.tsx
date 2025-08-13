@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import NavBar from '@/components/navbar';
 
 interface UserInfo{
     username: string,
@@ -16,7 +17,6 @@ export default function Profile() {
   });
 
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
 
   const fetchUserData = async () => {
     try {
@@ -25,6 +25,7 @@ export default function Profile() {
       });
       const userData = response.data.data;
       setUser({...user, username: userData.username, email: userData.email});
+      console.log(userData);
 
     } catch (error: any) {
       console.error("Failed to fetch user data:", error.response?.data || error.message);
@@ -39,17 +40,26 @@ export default function Profile() {
 
   if(loading){
     return (
-        <div className='text-center font-semibold text-2xl mt-10'>Loading...</div>
+        <div>
+        <NavBar/>
+        <div className='p-8 flex flex-col text-3xl items-center gap-8'>
+          Loading.....
+        </div>
+      </div>
     )
   }
 
   return (
     <>
-      <div className='flex m-10 justify-center'>
-        <h1 className='text-3xl font-semibold'>Hello {user?.username}</h1>
-      </div>
-      <div className='flex justify-center'>
-        <Button className='py-5 text-lg cursor-pointer' onClick={()=> router.push('/dashboard')}>Back</Button>
+      <div className=''>
+        <NavBar/>
+        <div className='p-8 flex flex-col items-center gap-8'>
+          <h1 className='text-4xl font-semibold'>Your Profile</h1>
+          <div className='flex flex-col gap-10 mt-6'>
+            <h1 className='text-2xl border-2 p-4 rounded-xl'>Username : {user?.username}</h1>
+            <h1 className='text-2xl border-2 p-4 rounded-xl'>Email : {user?.email}</h1>
+          </div>
+        </div>
       </div>
     </>
   )

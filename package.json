@@ -18,6 +18,7 @@
     "cloudinary": "^2.7.0",
     "clsx": "^2.1.1",
     "cors": "^2.8.5",
+    "embla-carousel-react": "^8.6.0",
     "formidable": "^3.5.4",
     "fs": "^0.0.1-security",
     "jsonwebtoken": "^9.0.2",

@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
                 content: [
                     {
                         type: "text",
-                        text: "Please describe the content in this medical document. Be clear and simple. Highlight risks anad suggest medical steps as well"
+                        text: "Please describe the content in this medical document. Be clear and simple. Highlight risks and suggest medical steps as well. Write in two paragraph"
                     },
                     {
                         type: "image_url",
@@ -105,6 +105,6 @@ export async function POST(request: NextRequest) {
             success: false,
             message: "Error getting the report : Error",
             error: error
-        },)
+        }, {status: 400})
     }
 }
